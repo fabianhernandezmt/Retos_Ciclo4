@@ -24,7 +24,7 @@ public class UserRepository {
         return userCrudRepository.findById(id);
     }
 
-    public Optional<User> getUserEmail(String email){
+    public User getUserEmail(String email){
         return userCrudRepository.findByEmail(email);
     }
 

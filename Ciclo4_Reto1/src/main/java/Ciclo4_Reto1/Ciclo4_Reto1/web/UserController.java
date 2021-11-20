@@ -1,7 +1,7 @@
 package Ciclo4_Reto1.Ciclo4_Reto1.web;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class UserController {
 
 
     @GetMapping("/{email}")
-    public Optional<User> getUserEmail(@PathVariable("email") String email){
+    public boolean getUserEmail(@PathVariable("email") String email){
         return userService.getUserEmail(email);
     }
 

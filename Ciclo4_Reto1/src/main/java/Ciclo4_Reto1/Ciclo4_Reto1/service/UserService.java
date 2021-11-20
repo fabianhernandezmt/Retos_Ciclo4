@@ -25,8 +25,13 @@ public class UserService {
 
     }
 
-    public Optional<User> getUserEmail(String email){
-        return userRepository.getUserEmail(email);
+    //public Optional<User> getUserEmail(String email){
+    //    return userRepository.getUserEmail(email);
+    //}
+
+    public Boolean getUserEmail(String email){
+        User user = userRepository.getUserEmail(email);
+        return user!= null;
     }
 
 
