@@ -1,10 +1,8 @@
 package Ciclo4_Reto1.Ciclo4_Reto1.web;
-
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +16,7 @@ import Ciclo4_Reto1.Ciclo4_Reto1.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
@@ -28,20 +27,27 @@ public class UserController {
         return userService.getAll();
     }
 
-
-
-    @GetMapping("/{email}")
-    public boolean getUserEmail(@PathVariable("email") String email){
-        return userService.getUserEmail(email);
-    }
-
-
-
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public User save(@RequestBody User u){
-        return userService.save(u);
+        return userService.registrar(u);
     }
+
+
+
+    @GetMapping("/{email}")
+    public boolean existeEmail(@PathVariable("email") String email){
+        return userService.existeEmail(email);
+    }
+
+    @GetMapping("/{email}/{password}")
+    public User autenticarUsuario (@PathVariable("email") String email, @PathVariable("password") String password ){
+        return userService.autenticarUsuario(email, password);
+    }
+
+
+
+
 
 
 }

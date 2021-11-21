@@ -1,11 +1,8 @@
 package Ciclo4_Reto1.Ciclo4_Reto1.service;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import Ciclo4_Reto1.Ciclo4_Reto1.model.User;
 import Ciclo4_Reto1.Ciclo4_Reto1.repository.UserRepository;
 
@@ -25,34 +22,36 @@ public class UserService {
 
     }
 
-    //public Optional<User> getUserEmail(String email){
-    //    return userRepository.getUserEmail(email);
-    //}
-
-    public Boolean getUserEmail(String email){
-        User user = userRepository.getUserEmail(email);
-        return user!= null;
-    }
 
 
-
-    public User save(User u){
-        if(u.getId()==null){
-            return userRepository.save(u);
-        }else{
-            Optional<User> uaux=userRepository.getUser(u.getId());
-            if(uaux.isEmpty()){
-                return userRepository.save(u);     
+    public User registrar(User user){
+        if (user.getId() == null){
+            if (existeEmail(user.getEmail()) == false){
+                return userRepository.save(user);
             }else{
-                return u;
+                return user;
             }
+        }else{
+            return user;
         }
 
-
-
     }
 
+    public boolean existeEmail(String email){
+        return userRepository.existeEmail(email);
     }
+
+    public User autenticarUsuario(String email, String password){
+        Optional<User> usuario = userRepository.autenticarUsuario(email, password);
+
+        if (usuario.isEmpty()){
+            return new User(email, password, "NO DEFINIDO");
+        }else{
+            return usuario.get();
+        }
+    }
+
+}
 
     
 
